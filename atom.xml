@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Luminous Octopress Blog]]></title>
+  <title><![CDATA[A Luminous Night]]></title>
   <link href="http://iluminite.github.io/atom.xml" rel="self"/>
   <link href="http://iluminite.github.io/"/>
-  <updated>2014-11-22T18:01:11+00:00</updated>
+  <updated>2014-11-22T20:03:35+00:00</updated>
   <id>http://iluminite.github.io/</id>
   <author>
     <name><![CDATA[@luminous]]></name>
@@ -14,11 +14,311 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Hello Octopress]]></title>
-    <link href="http://iluminite.github.io/blog/2014/11/22/hello-octopress/"/>
+    <title type="html"><![CDATA[Initial Octopress Setup]]></title>
+    <link href="http://iluminite.github.io/blog/2014/11/22/initial-octopress-setup/"/>
     <updated>2014-11-22T18:00:06+00:00</updated>
-    <id>http://iluminite.github.io/blog/2014/11/22/hello-octopress</id>
-    <content type="html"><![CDATA[<p>Hello world thru octopress!</p>
+    <id>http://iluminite.github.io/blog/2014/11/22/initial-octopress-setup</id>
+    <content type="html"><![CDATA[<p>Since we&rsquo;ve gotten <a href="http://octopress.org/">this thing</a> to work, why don&rsquo;t we actually document how we did it.</p>
+
+<p>Start with the <a href="http://octopress.org/docs/">Octopress Docs</a>.</p>
+
+<h2>Ruby Setup</h2>
+
+<p>It makes a lot of sense to install virtual environments for Ruby as we would Python. This will keep the Ruby and gems installed for Octopress separate from the host system&rsquo;s Ruby and gems.</p>
+
+<p><a href="http://octopress.org/docs/setup/rvm/">More details here</a>.</p>
+
+<h3>Install RVM</h3>
+
+<pre><code>% curl -L https://get.rvm.io | bash -s stable --ruby
+</code></pre>
+
+<p>You can review the script first - it is good to be paranoid, you will give this script full system access through <code>sudo</code>.</p>
+
+<pre><code>% curl -L https://get.rvm.io | less
+</code></pre>
+
+<h3>Install Ruby 1.9.3 with RVM</h3>
+
+<pre><code>% rvm install 1.9.3 &amp;&amp; rvm use 1.9.3 &amp;&amp; rvm rubygems latest
+</code></pre>
+
+<p>Output will be similar to:</p>
+
+<pre><code>Searching for binary rubies, this might take some time.
+Found remote file https://rvm_io.global.ssl.fastly.net/binaries/ubuntu/12.04/x86_64/ruby-1.9.3-p551.tar.bz2
+Checking requirements for ubuntu.
+Requirements installation successful.
+ruby-1.9.3-p551 - #configure
+ruby-1.9.3-p551 - #download
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 11.3M  100 11.3M    0     0  1312k      0  0:00:08  0:00:08 --:--:-- 3065k
+No checksum for downloaded archive, recording checksum in user configuration.
+ruby-1.9.3-p551 - #validate archive
+ruby-1.9.3-p551 - #extract
+ruby-1.9.3-p551 - #validate binary
+ruby-1.9.3-p551 - #setup
+ruby-1.9.3-p551 - #gemset created /home/luminous/.rvm/gems/ruby-1.9.3-p551@global
+ruby-1.9.3-p551 - #importing gemset /home/luminous/.rvm/gemsets/global.gems....................................
+ruby-1.9.3-p551 - #generating global wrappers........
+ruby-1.9.3-p551 - #gemset created /home/luminous/.rvm/gems/ruby-1.9.3-p551
+ruby-1.9.3-p551 - #importing gemsetfile /home/luminous/.rvm/gemsets/default.gems evaluated to empty gem list
+ruby-1.9.3-p551 - #generating default wrappers........
+Using /home/luminous/.rvm/gems/ruby-1.9.3-p551
+ruby-1.9.3-p551 - #downloading rubygems-2.4.4
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  433k  100  433k    0     0  4068k      0 --:--:-- --:--:-- --:--:-- 10.3M
+No checksum for downloaded archive, recording checksum in user configuration.
+ruby-1.9.3-p551 - #extracting rubygems-2.4.4....
+ruby-1.9.3-p551 - #removing old rubygems.........
+ruby-1.9.3-p551 - #installing rubygems-2.4.4..............
+</code></pre>
+
+<h3>Test Ruby to confirm version</h3>
+
+<pre><code>% ruby --version
+ruby 1.9.3p551 (2014-11-13 revision 48407) [x86_64-linux]
+</code></pre>
+
+<h2>Octopress setup</h2>
+
+<p>More details <a href="http://octopress.org/docs/setup/">documented here</a>.</p>
+
+<h3>Get Octopress source</h3>
+
+<pre><code>% git clone git://github.com/imathis/octopress.git octopress
+
+Cloning into 'octopress'...
+remote: Counting objects: 10653, done.
+remote: Compressing objects: 100% (24/24), done.
+remote: Total 10653 (delta 7), reused 5 (delta 1)
+Receiving objects: 100% (10653/10653), 2.79 MiB, done.
+Resolving deltas: 100% (5134/5134), done.
+</code></pre>
+
+<h3>Install Bundler</h3>
+
+<pre><code>% cd octopress
+% gem install bundler
+Fetching: bundler-1.7.7.gem (100%)
+Successfully installed bundler-1.7.7
+Installing ri documentation for bundler-1.7.7
+1 gem installed
+</code></pre>
+
+<h3>Install Octopress dependencies</h3>
+
+<pre><code>% bundle install
+</code></pre>
+
+<p>Output will look similar to:</p>
+
+<pre><code>Fetching gem metadata from https://rubygems.org/........                                                                                                                                                 [18/2888]
+Resolving dependencies...
+Installing rake 10.3.2
+Installing RedCloth 4.2.9
+Installing blankslate 2.1.2.4
+Installing hitimes 1.2.2
+Installing timers 4.0.1
+Installing celluloid 0.16.0
+Installing chunky_png 1.3.3
+Installing fast-stemmer 1.0.2
+Installing classifier-reborn 2.0.2
+Installing coffee-script-source 1.8.0
+Installing execjs 2.2.2
+Installing coffee-script 2.3.0
+Installing colorator 0.1
+Installing fssm 0.2.10
+Installing sass 3.2.19
+Installing compass 0.12.7
+Installing ffi 1.9.6
+Installing tilt 1.4.1
+Installing haml 4.0.5
+Installing jekyll-coffeescript 1.0.1
+Installing jekyll-gist 1.1.0
+Installing jekyll-paginate 1.1.0
+Installing jekyll-sass-converter 1.2.1
+Installing rb-fsevent 0.9.4
+Installing rb-inotify 0.9.5
+Installing listen 2.8.0
+Installing jekyll-watch 1.1.2
+Installing kramdown 1.5.0
+Installing liquid 2.6.1
+Installing mercenary 0.3.5
+Installing posix-spawn 0.3.9
+Installing yajl-ruby 1.1.0
+Installing pygments.rb 0.6.0
+Installing redcarpet 3.2.0
+Installing safe_yaml 1.0.4
+Installing parslet 1.5.0
+Installing toml 0.1.2
+Installing jekyll 2.5.1
+Installing jekyll-sitemap 0.6.3
+Installing octopress-hooks 2.2.1
+Installing octopress-date-format 2.0.2
+Installing rack 1.5.2
+Installing rack-protection 1.5.3
+Installing rdiscount 2.1.7.1
+Installing rubypants 0.2.0
+Installing sass-globbing 1.0.0
+Installing sinatra 1.4.5
+Installing stringex 1.4.0
+Using bundler 1.7.7
+Your bundle is complete!
+Your bundle is complete!
+Use `bundle show [gemname]` to see where a bundled gem is installed.
+Post-install message from haml:
+
+HEADS UP! Haml 4.0 has many improvements, but also has changes that may break
+your application:
+
+* Support for Ruby 1.8.6 dropped
+* Support for Rails 2 dropped
+* Sass filter now always outputs &lt;style&gt; tags
+* Data attributes are now hyphenated, not underscored
+* html2haml utility moved to the html2haml gem
+* Textile and Maruku filters moved to the haml-contrib gem
+
+For more info see:
+
+http://rubydoc.info/github/haml/haml/file/CHANGELOG.md
+</code></pre>
+
+<h3>Install Octopress</h3>
+
+<pre><code>% rake install
+## Copying classic theme into ./source and ./sass
+mkdir -p source
+cp -r .themes/classic/source/. source
+mkdir -p sass
+cp -r .themes/classic/sass/. sass
+mkdir -p source/_posts
+mkdir -p public
+</code></pre>
+
+<h2>Configure</h2>
+
+<h3>Edit <code>_config.yaml</code></h3>
+
+<p>Set <code>url</code> at the very least, but might as well customize <code>title</code>, <code>subtitle</code>, <code>author</code>, and <code>simple_search</code>. We also remove/comment config for all 3rd party services except Github. Still need to verify if this worked as expected.</p>
+
+<h2>Deploy to Github.io</h2>
+
+<p>Read and follow <a href="http://octopress.org/docs/deploying/github/">the docs</a>.</p>
+
+<p>Create a new repo up on Github. For the simplest path, keep it empty. In case it matters, Octopress will not step on any existing commits, only add to them.</p>
+
+<h3>Initial github.io setup</h3>
+
+<pre><code>% rake setup_github_pages
+</code></pre>
+
+<h3>Create an empty post</h3>
+
+<h3>Render HTML from source</h3>
+
+<pre><code>% rake generate
+</code></pre>
+
+<h3>Deploy to Github.io</h3>
+
+<pre><code>% rake deploy
+</code></pre>
+
+<h2>Setup Octopress source repo</h2>
+
+<p>Using Octopress <code>rake setup_github_pages</code> and <code>rake deploy</code> will manage commits and publishing to Github.io with the <code>&lt;user&gt;.github.io</code> repo. We also need a place to store the blog source.</p>
+
+<h3>Create a new git repo to keep the source.</h3>
+
+<p>Some people like to put both in the same repo (on separate branches). We will try something simpler for now - two repos. Octopress is managing the repo we deploy HTML to (created as part of <code>setup_github_pages</code> and with commits made/pushed by Octopress <code>rake deploy</code>), so it makes sense.</p>
+
+<h3>Add the remote URL</h3>
+
+<p>Jump to the Octopress repo root and run:</p>
+
+<pre><code>% git remote add origin git@github.com:user/octopress.git
+</code></pre>
+
+<h3>Create branch for <code>source</code></h3>
+
+<pre><code>% git checkout -b source
+</code></pre>
+
+<h3>Initial commit with custom config</h3>
+
+<pre><code>% git add .
+% git commit -m 'Initial commit with empty Octopress blog'
+</code></pre>
+
+<h3>Push changes to remote git</h3>
+
+<pre><code>% git push origin source
+</code></pre>
+
+<h2>Using the blog</h2>
+
+<p>More <a href="http://octopress.org/docs/blogging/">docs here</a>.</p>
+
+<h3>Generate a new post</h3>
+
+<p>Escaping the <code>[</code> and <code>]</code> was necessary for my shell setup with zsh. This will need to change.</p>
+
+<pre><code>% rake new_post\["Hello-Octopress"\]
+</code></pre>
+
+<h3>Edit the post</h3>
+
+<p>The YAML header for a post looks like:</p>
+
+<pre><code>---
+layout: post
+title: "Hello Octopress"
+date: 2014-11-22 18:00:06 +0000
+comments: true
+categories:
+---
+</code></pre>
+
+<p>Disable comments and define some categories:</p>
+
+<pre><code>---
+layout: post
+title: "Hello Octopress"
+date: 2014-11-22 18:00:06 +0000
+comments: false
+categories:
+  - How To
+  - Linux
+  - Octopress
+---
+</code></pre>
+
+<p>Add content below the header. For help with Markdown, compare <a href="http://octopress.org/docs/plugins/backtick-codeblock/">a doc</a> against the <a href="https://raw.githubusercontent.com/octopress/docs/master/source/docs/plugins/backtick-codeblock/index.markdown">doc source code</a>.</p>
+
+<h3>Use watch and preview</h3>
+
+<p>This will regenerate the HTML with changes made to the blog source and setup an HTTP server on <code>localhost:4000</code> and available at <code>http://localhost:4000</code>. Use <code>tmux</code> to open a window/pane just for this, and be sure to activate the rvm first.</p>
+
+<pre><code>% rvm use 1.9.3
+% rake watch &amp;
+% rake preview &amp;
+</code></pre>
+
+<h2>Setup SSH port forwarding</h2>
+
+<p>If the source is on a remote system, we can keep <code>rake preview</code> on the remote host but view the blog on <a href="http://localhost">http://localhost</a> (with our browser), with all communication over SSH.</p>
+
+<h3>Forward localhost:4000 to a remote host</h3>
+
+<pre><code>% ssh -L 4000:remote.host:4000 user@remote.host
+</code></pre>
+
+<h3>Load <a href="http://localhost:4000">http://localhost:4000</a> and revel with Octopress!</h3>
+
+<p>Done.</p>
 ]]></content>
   </entry>
   
