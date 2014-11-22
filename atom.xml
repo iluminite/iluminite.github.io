@@ -4,7 +4,7 @@
   <title><![CDATA[A Luminous Night]]></title>
   <link href="http://iluminite.github.io/atom.xml" rel="self"/>
   <link href="http://iluminite.github.io/"/>
-  <updated>2014-11-22T20:03:35+00:00</updated>
+  <updated>2014-11-22T21:11:38+00:00</updated>
   <id>http://iluminite.github.io/</id>
   <author>
     <name><![CDATA[@luminous]]></name>
@@ -12,6 +12,61 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Install Kivy on Raspberry Pi]]></title>
+    <link href="http://iluminite.github.io/blog/2014/11/22/install-kivy-on-raspberry-pi/"/>
+    <updated>2014-11-22T19:15:30+00:00</updated>
+    <id>http://iluminite.github.io/blog/2014/11/22/install-kivy-on-raspberry-pi</id>
+    <content type="html"><![CDATA[<p><a href="http://kivy.org">Kivy</a> is my favorite UI framework. Here is how to install and use it on Raspberry Pi.  More documentation in <a href="http://kivy.org/docs/">the docs</a>.</p>
+
+<h2>Install Kivy</h2>
+
+<p>Follow the <a href="http://kivy.org/docs/installation/installation-rpi.html">docs</a> for installing on Raspberry Pi.</p>
+
+<h3>Update apt for gstreamer:</h3>
+
+<pre><code>% sudo echo 'deb http://vontaene.de/raspbian-updates/ . main' &gt; /etc/apt/sources.list.d/gstreamer.list
+</code></pre>
+
+<h3>Install system package dependencies</h3>
+
+<pre><code>% sudo apt-get update
+% sudo apt-get install pkg-config libgl1-mesa-dev libgles2-mesa-dev \
+   python-pygame python-setuptools libgstreamer1.0-dev git-core \
+   gstreamer1.0-plugins-{bad,base,good,ugly} gstreamer1.0-{omx,alsa}
+</code></pre>
+
+<h3>Install cython with pip</h3>
+
+<p>The Debian package is out of date..</p>
+
+<pre><code>% sudo pip install cython
+</code></pre>
+
+<h3>Get the Kivy source</h3>
+
+<p>Kivy&rsquo;s support for Raspberry Pi and touchscreen hardware is under active development, it is simpler to run the code directly.</p>
+
+<h3>Clone the kivy repo to ~</h3>
+
+<pre><code>% cd ~
+% git clone https://github.com/kivy/kivy
+% cd kivy
+</code></pre>
+
+<h3>Build c source</h3>
+
+<pre><code>% make
+</code></pre>
+
+<h3>Update <code>~/.profile</code> to include <code>$PYTHONPATH</code></h3>
+
+<pre><code>% echo "export PYTHONPATH=$(pwd):\$PYTHONPATH" &gt;&gt; ~/.profile
+% source ~/.profile
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Initial Octopress Setup]]></title>

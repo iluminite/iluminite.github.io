@@ -9,7 +9,7 @@
   <meta name="author" content="@luminous">
 
   
-  <meta name="description" content="Since we&rsquo;ve gotten this thing to work, why don&rsquo;t we actually document how we did it. Start with the Octopress Docs. Ruby Setup It makes a &hellip;">
+  <meta name="description" content="Kivy is my favorite UI framework. Here is how to install and use it on Raspberry Pi. More documentation in the docs. Install Kivy Follow the docs for &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,81 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/11/22/install-kivy-on-raspberry-pi/">Install Kivy on Raspberry Pi</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-11-22T19:15:30+00:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>7:15 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://kivy.org">Kivy</a> is my favorite UI framework. Here is how to install and use it on Raspberry Pi.  More documentation in <a href="http://kivy.org/docs/">the docs</a>.</p>
+
+<h2>Install Kivy</h2>
+
+<p>Follow the <a href="http://kivy.org/docs/installation/installation-rpi.html">docs</a> for installing on Raspberry Pi.</p>
+
+<h3>Update apt for gstreamer:</h3>
+
+<pre><code>% sudo echo 'deb http://vontaene.de/raspbian-updates/ . main' &gt; /etc/apt/sources.list.d/gstreamer.list
+</code></pre>
+
+<h3>Install system package dependencies</h3>
+
+<pre><code>% sudo apt-get update
+% sudo apt-get install pkg-config libgl1-mesa-dev libgles2-mesa-dev \
+   python-pygame python-setuptools libgstreamer1.0-dev git-core \
+   gstreamer1.0-plugins-{bad,base,good,ugly} gstreamer1.0-{omx,alsa}
+</code></pre>
+
+<h3>Install cython with pip</h3>
+
+<p>The Debian package is out of date..</p>
+
+<pre><code>% sudo pip install cython
+</code></pre>
+
+<h3>Get the Kivy source</h3>
+
+<p>Kivy&rsquo;s support for Raspberry Pi and touchscreen hardware is under active development, it is simpler to run the code directly.</p>
+
+<h3>Clone the kivy repo to ~</h3>
+
+<pre><code>% cd ~
+% git clone https://github.com/kivy/kivy
+% cd kivy
+</code></pre>
+
+<h3>Build c source</h3>
+
+<pre><code>% make
+</code></pre>
+
+<h3>Update <code>~/.profile</code> to include <code>$PYTHONPATH</code></h3>
+
+<pre><code>% echo "export PYTHONPATH=$(pwd):\$PYTHONPATH" &gt;&gt; ~/.profile
+% source ~/.profile
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -406,6 +481,10 @@ categories:
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/22/install-kivy-on-raspberry-pi/">Install Kivy on Raspberry Pi</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/11/22/initial-octopress-setup/">Initial Octopress Setup</a>

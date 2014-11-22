@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: Octopress - A Luminous Night</title>
+  <title>Install Kivy on Raspberry Pi - A Luminous Night</title>
   <meta name="author" content="@luminous">
 
   
-  <meta name="description" content="Category: octopress">
+  <meta name="description" content="Kivy is my favorite UI framework. Here is how to install and use it on Raspberry Pi. More documentation in the docs. Install Kivy Follow the docs for &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://iluminite.github.io/blog/categories/octopress">
+  <link rel="canonical" href="http://iluminite.github.io/blog/2014/11/22/install-kivy-on-raspberry-pi">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="A Luminous Night" type="application/atom+xml">
@@ -64,35 +64,114 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Octopress</h1>
+    
+      <h1 class="entry-title">Install Kivy on Raspberry Pi</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-11-22T19:15:30+00:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>7:15 pm</span></time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p><a href="http://kivy.org">Kivy</a> is my favorite UI framework. Here is how to install and use it on Raspberry Pi.  More documentation in <a href="http://kivy.org/docs/">the docs</a>.</p>
 
-  
-  <h2>2014</h2>
+<h2>Install Kivy</h2>
 
-<article>
-  
-<h1><a href="/blog/2014/11/22/initial-octopress-setup/">Initial Octopress Setup</a></h1>
-<time datetime="2014-11-22T18:00:06+00:00" pubdate><span class='month'>Nov</span> <span class='day'>22</span> <span class='year'>2014</span></time>
+<p>Follow the <a href="http://kivy.org/docs/installation/installation-rpi.html">docs</a> for installing on Raspberry Pi.</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/github/'>github</a>, <a class='category' href='/blog/categories/how-to/'>how to</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/octopress/'>octopress</a></span>
-</footer>
+<h3>Update apt for gstreamer:</h3>
 
+<pre><code>% sudo echo 'deb http://vontaene.de/raspbian-updates/ . main' &gt; /etc/apt/sources.list.d/gstreamer.list
+</code></pre>
 
-</article>
+<h3>Install system package dependencies</h3>
 
+<pre><code>% sudo apt-get update
+% sudo apt-get install pkg-config libgl1-mesa-dev libgles2-mesa-dev \
+   python-pygame python-setuptools libgstreamer1.0-dev git-core \
+   gstreamer1.0-plugins-{bad,base,good,ugly} gstreamer1.0-{omx,alsa}
+</code></pre>
+
+<h3>Install cython with pip</h3>
+
+<p>The Debian package is out of date..</p>
+
+<pre><code>% sudo pip install cython
+</code></pre>
+
+<h3>Get the Kivy source</h3>
+
+<p>Kivy&rsquo;s support for Raspberry Pi and touchscreen hardware is under active development, it is simpler to run the code directly.</p>
+
+<h3>Clone the kivy repo to ~</h3>
+
+<pre><code>% cd ~
+% git clone https://github.com/kivy/kivy
+% cd kivy
+</code></pre>
+
+<h3>Build c source</h3>
+
+<pre><code>% make
+</code></pre>
+
+<h3>Update <code>~/.profile</code> to include <code>$PYTHONPATH</code></h3>
+
+<pre><code>% echo "export PYTHONPATH=$(pwd):\$PYTHONPATH" &gt;&gt; ~/.profile
+% source ~/.profile
+</code></pre>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">@luminous</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-11-22T19:15:30+00:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>7:15 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/how-to/'>how to</a>, <a class='category' href='/blog/categories/kivy/'>kivy</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/raspberry-pi/'>raspberry pi</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/11/22/initial-octopress-setup/" title="Previous Post: Initial Octopress Setup">&laquo; Initial Octopress Setup</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>
