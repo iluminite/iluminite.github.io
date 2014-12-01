@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: How To - A Luminous Night</title>
+  <title>Running Docker Without Sudo - A Luminous Night</title>
   <meta name="author" content="@luminous">
 
   
-  <meta name="description" content="Category: how to">
+  <meta name="description" content="Information about Docker suggests running docker commands with sudo, but I would prefer to use docker as my regular user. Supposedly this is a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://iluminite.github.io/blog/categories/how-to">
+  <link rel="canonical" href="http://iluminite.github.io/blog/2014/11/30/run-docker-without-sudo">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="A Luminous Night" type="application/atom+xml">
@@ -64,63 +64,116 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: How To</h1>
+    
+      <h1 class="entry-title">Running Docker Without Sudo</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-11-30T12:15:00+00:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>30</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:15 pm</span></time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>Information about <a href="http://docker.io">Docker</a> suggests running <code>docker</code> commands with <code>sudo</code>, but I would prefer to use docker as my regular user.</p>
 
-  
-  <h2>2014</h2>
+<p>Supposedly this is a documented topic, but I did not look hard enough to locate those details. Either way, it is pretty easy to do.</p>
 
-<article>
-  
-<h1><a href="/blog/2014/11/30/run-docker-without-sudo/">Running Docker Without Sudo</a></h1>
-<time datetime="2014-11-30T12:15:00+00:00" pubdate><span class='month'>Nov</span> <span class='day'>30</span> <span class='year'>2014</span></time>
+<h2>For an unpriviledged user..</h2>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/docker/'>docker</a>, <a class='category' href='/blog/categories/how-to/'>how to</a>, <a class='category' href='/blog/categories/linux/'>linux</a></span>
-</footer>
+<h3>Ensure the user is in the <code>docker</code> group</h3>
 
+<pre><code>% usermod -G docker &lt;user&gt;
+</code></pre>
 
-</article>
+<h3>Restart the <code>docker</code> service</h3>
 
+<pre><code>% service restart docker
+</code></pre>
 
+<h3>Test with <code>id</code></h3>
 
-<article>
-  
-<h1><a href="/blog/2014/11/22/install-kivy-on-raspberry-pi/">Install Kivy on Raspberry Pi</a></h1>
-<time datetime="2014-11-22T19:15:30+00:00" pubdate><span class='month'>Nov</span> <span class='day'>22</span> <span class='year'>2014</span></time>
+<p>If you have not logged out, <code>id</code> will not include the docker group:</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/how-to/'>how to</a>, <a class='category' href='/blog/categories/kivy/'>kivy</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/raspberry-pi/'>raspberry pi</a></span>
-</footer>
+<pre><code>% id
+uid=1000(user) gid=1000(user) groups=1000(user),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),109(lpadmin),124(sambashare)
+</code></pre>
 
+<p>Forcing the login, we will see this change:</p>
 
-</article>
+<pre><code>% su -l user
+Password: 
+% id
+uid=1000(user) gid=1000(user) groups=1000(user),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),109(lpadmin),124(sambashare),999(docker)
+</code></pre>
 
+<h3>docker run should work!</h3>
 
+<pre><code>% docker run -i -t ubuntu /bin/bash
+Unable to find image 'ubuntu' locally
+ubuntu:latest: The image you are pulling has been verified
+511136ea3c5a: Pull complete 
+5bc37dc2dfba: Pull complete 
+61cb619d86bc: Pull complete 
+3f45ca85fedc: Pull complete 
+78e82ee876a2: Pull complete 
+dc07507cef42: Pull complete 
+86ce37374f40: Pull complete 
+Status: Downloaded newer image for ubuntu:latest
+root@a91029463b28:/# 
+</code></pre>
 
-<article>
-  
-<h1><a href="/blog/2014/11/22/initial-octopress-setup/">Initial Octopress Setup</a></h1>
-<time datetime="2014-11-22T18:00:06+00:00" pubdate><span class='month'>Nov</span> <span class='day'>22</span> <span class='year'>2014</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/github/'>github</a>, <a class='category' href='/blog/categories/how-to/'>how to</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/octopress/'>octopress</a></span>
-</footer>
-
-
-</article>
-
+<h2>Done!</h2>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">@luminous</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-11-30T12:15:00+00:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>30</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:15 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/docker/'>docker</a>, <a class='category' href='/blog/categories/how-to/'>how to</a>, <a class='category' href='/blog/categories/linux/'>linux</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/11/22/install-kivy-on-raspberry-pi/" title="Previous Post: Install Kivy on Raspberry Pi">&laquo; Install Kivy on Raspberry Pi</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>

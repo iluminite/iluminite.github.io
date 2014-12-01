@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Docker | A Luminous Night]]></title>
+  <link href="http://iluminite.github.io/blog/categories/docker/atom.xml" rel="self"/>
+  <link href="http://iluminite.github.io/"/>
+  <updated>2014-12-01T02:12:09+00:00</updated>
+  <id>http://iluminite.github.io/</id>
+  <author>
+    <name><![CDATA[@luminous]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Running Docker Without Sudo]]></title>
+    <link href="http://iluminite.github.io/blog/2014/11/30/run-docker-without-sudo/"/>
+    <updated>2014-11-30T12:15:00+00:00</updated>
+    <id>http://iluminite.github.io/blog/2014/11/30/run-docker-without-sudo</id>
+    <content type="html"><![CDATA[<p>Information about <a href="http://docker.io">Docker</a> suggests running <code>docker</code> commands with <code>sudo</code>, but I would prefer to use docker as my regular user.</p>
+
+<p>Supposedly this is a documented topic, but I did not look hard enough to locate those details. Either way, it is pretty easy to do.</p>
+
+<h2>For an unpriviledged user..</h2>
+
+<h3>Ensure the user is in the <code>docker</code> group</h3>
+
+<pre><code>% usermod -G docker &lt;user&gt;
+</code></pre>
+
+<h3>Restart the <code>docker</code> service</h3>
+
+<pre><code>% service restart docker
+</code></pre>
+
+<h3>Test with <code>id</code></h3>
+
+<p>If you have not logged out, <code>id</code> will not include the docker group:</p>
+
+<pre><code>% id
+uid=1000(user) gid=1000(user) groups=1000(user),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),109(lpadmin),124(sambashare)
+</code></pre>
+
+<p>Forcing the login, we will see this change:</p>
+
+<pre><code>% su -l user
+Password: 
+% id
+uid=1000(user) gid=1000(user) groups=1000(user),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),109(lpadmin),124(sambashare),999(docker)
+</code></pre>
+
+<h3>docker run should work!</h3>
+
+<pre><code>% docker run -i -t ubuntu /bin/bash
+Unable to find image 'ubuntu' locally
+ubuntu:latest: The image you are pulling has been verified
+511136ea3c5a: Pull complete 
+5bc37dc2dfba: Pull complete 
+61cb619d86bc: Pull complete 
+3f45ca85fedc: Pull complete 
+78e82ee876a2: Pull complete 
+dc07507cef42: Pull complete 
+86ce37374f40: Pull complete 
+Status: Downloaded newer image for ubuntu:latest
+root@a91029463b28:/# 
+</code></pre>
+
+<h2>Done!</h2>
+]]></content>
+  </entry>
+  
+</feed>
