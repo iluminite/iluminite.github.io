@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Docker | A Luminous Night]]></title>
   <link href="http://iluminite.github.io/blog/categories/docker/atom.xml" rel="self"/>
   <link href="http://iluminite.github.io/"/>
-  <updated>2014-12-01T03:33:59+00:00</updated>
+  <updated>2014-12-01T16:38:09+00:00</updated>
   <id>http://iluminite.github.io/</id>
   <author>
     <name><![CDATA[@luminous]]></name>
@@ -12,6 +12,65 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Wrangling in Those Misbehaving Docker Containers]]></title>
+    <link href="http://iluminite.github.io/blog/2014/12/01/wrangling-in-those-misbehaving-docker-containers/"/>
+    <updated>2014-12-01T06:10:00+00:00</updated>
+    <id>http://iluminite.github.io/blog/2014/12/01/wrangling-in-those-misbehaving-docker-containers</id>
+    <content type="html"><![CDATA[<p>While docker is all the rave, and for good reason, it is not without its drawbacks. One of the primary reasons we use Docker is to get more done with less work, but there are times when the boxed solution you have found does not work. Fortunately, we can easily take a broken Docker image and fix it up into shape.</p>
+
+<h2>Fix a Bad Image</h2>
+
+<h3><code>Dockerfile</code> to the rescue!</h3>
+
+<p>Use a <code>Dockerfile</code> to create a new image as an extension of the original:</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='Dockerfile'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;extend the broken image with your patches&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;FROM broken/image&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;patch up the original&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;RUN touch /that/missing/file
+</span><span class='line'><span class="k">RUN</span> chmod -R user:user /home/user
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h3>Build a replacement image!</h3>
+
+<pre><code>% docker build -t &lt;tag&gt; .
+Sending build context to Docker daemon  2.56 kB
+Sending build context to Docker daemon
+Step 0 : FROM broken/image
+ ---&gt; 78ee0694f929
+Step 1 : RUN touch /that/missing/file
+ ---&gt; Running in 78ee0694f929
+ ---&gt; ade3d87907de
+Step 2 : RUN chown -R user:user /home/user/
+ ---&gt; Running in ade3d87907de
+ ---&gt; f1cdcfa9ffb8
+Removing intermediate container ade3d87907de
+Successfully built f1cdcfa9ffb8
+</code></pre>
+
+<h3>Run with your new image!</h3>
+
+<pre><code>% docker run -p 8080:8080 &lt;tag&gt;
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[How to Start the Docker Service With Custom Options]]></title>
