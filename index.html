@@ -9,7 +9,7 @@
   <meta name="author" content="@luminous">
 
   
-  <meta name="description" content="Information about Docker suggests running docker commands with sudo, but I would prefer to use docker as my regular user. Supposedly this is a &hellip;">
+  <meta name="description" content="This is pretty easy to do, but not easy to find in the documentation. create /etc/default/docker with DOCKER_OPTS % echo "DOCKER_OPTS="--dns 8.8.8.8 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,45 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/12/01/start-docker-service-with-custom-options/">How to Start the Docker Service With Custom Options</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-12-01T00:55:00+00:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>12:55 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is pretty easy to do, but not easy to find in the <a href="http://docs.docker.com/installation/ubuntulinux/">documentation</a>.</p>
+
+<h3>create /etc/default/docker with DOCKER_OPTS</h3>
+
+<pre><code>% echo "DOCKER_OPTS="--dns 8.8.8.8"" &gt;&gt; /etc/default/docker
+</code></pre>
+
+<h3>Restart the <code>docker</code> Service</h3>
+
+<pre><code>% service docker restart
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -558,6 +597,10 @@ categories:
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/12/01/start-docker-service-with-custom-options/">How to Start the Docker Service With Custom Options</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/11/30/run-docker-without-sudo/">Running Docker Without Sudo</a>

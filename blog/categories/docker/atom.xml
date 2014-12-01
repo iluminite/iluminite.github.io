@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Docker | A Luminous Night]]></title>
   <link href="http://iluminite.github.io/blog/categories/docker/atom.xml" rel="self"/>
   <link href="http://iluminite.github.io/"/>
-  <updated>2014-12-01T02:12:09+00:00</updated>
+  <updated>2014-12-01T03:33:59+00:00</updated>
   <id>http://iluminite.github.io/</id>
   <author>
     <name><![CDATA[@luminous]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[How to Start the Docker Service With Custom Options]]></title>
+    <link href="http://iluminite.github.io/blog/2014/12/01/start-docker-service-with-custom-options/"/>
+    <updated>2014-12-01T00:55:00+00:00</updated>
+    <id>http://iluminite.github.io/blog/2014/12/01/start-docker-service-with-custom-options</id>
+    <content type="html"><![CDATA[<p>This is pretty easy to do, but not easy to find in the <a href="http://docs.docker.com/installation/ubuntulinux/">documentation</a>.</p>
+
+<h3>create /etc/default/docker with DOCKER_OPTS</h3>
+
+<pre><code>% echo "DOCKER_OPTS="--dns 8.8.8.8"" &gt;&gt; /etc/default/docker
+</code></pre>
+
+<h3>Restart the <code>docker</code> Service</h3>
+
+<pre><code>% service docker restart
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Running Docker Without Sudo]]></title>
